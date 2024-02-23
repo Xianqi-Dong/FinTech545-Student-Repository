@@ -1,6 +1,6 @@
 venv/**
 venv
-__pycache__/**
-__pycache__
-FinTech545_Spring2024
-FinTech545_Spring2024/**
+repo/FinTech545_Spring2024/**
+repo/FinTech545_Spring2024
+julia/**
+julia
