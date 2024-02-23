@@ -1,0 +1,133 @@
+\documentclass{article}
+\title{Week04 Assignment}
+\author{Xianqi Dong (xd81)}
+\date{\today}
+\usepackage{amsmath}
+
+\begin{document}
+\maketitle
+\section{Problem1}
+\begin{equation}
+\begin{split}
+& P_t = P_{t-1} + r_t \\
+& E(P_t) = E(P_{t-1}) + E(r_t) = P_{t-1} \\
+& Var(P_t) = Var(P_{t-1}) + Var(r_t) = \sigma^2
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+& P_t = P_{t-1}(1 + r_t) \\
+& E(P_t) = E(P_{t-1}(1 + r_t)) = P_{t-1}(1 + E(r_t)) = P_{t-1} \\
+& Var(P_t) = Var(P_{t-1}(1 + r_t)) = P_{t-1}^2\sigma^2
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+& P_t = P_{t-1}e^{r_t} \\
+& E(P_t) = E(P_{t-1}e^{r_t}) = P_{t-1}E(e^{r_t}) = P_{t-1}e^{\mu+\frac{1}{2}\sigma^2} \\
+& Var(P_t) = Var(P_{t-1}e^{r_t}) = P_{t-1}^2Var(e^{r_t}) = P_{t-1}^2(e^{\sigma^2}-1)e^{2\mu+\sigma^2}
+\end{split}
+\end{equation}
+
+Classical Brownian Motion: \par
+mean:  10.00024525468145\par
+std:  0.009852316885855281\par
+Expectation: \par
+mean:  10       difference:  0.0002452546814506462\par
+std:  0.01      difference:  -0.00014768311414471887\par
+
+Arithmetic Return System: \par
+mean:  9.998367145374376\par
+std:  0.1024923953908439\par
+Expectation: \par
+mean:  10       difference:  -0.001632854625624347\par
+std:  0.1       difference:  0.0024923953908438934\par
+
+Geometric Brownian Motion: \par
+mean:  9.998319913345714\par
+std:  0.09949480292518091\par
+Expectation: \par
+mean:  10.000500012500208       difference:  -0.0021800991544935755\par
+std:  0.10000750030211356       difference:  -0.0005126973769326443\par
+
+\section{Problem2}
+
+Normal Distribution: \par
+5\% VaR: -5.42\%\par
+1\% VaR: -7.66\%\par
+
+Normal Distribution with an Exponentially Weighted Variance: \par
+5\% VaR: -3.27\%\par
+1\% VaR: -4.62\%\par
+
+MLE fitted T Distribution: \par
+5\% VaR: -2.9\%\par
+1\% VaR: -4.11\%\par
+
+Fitte AR(1) Model: \par
+5\% VaR: -0.76\%\par
+1\% VaR: -0.83\%\par
+
+Historic Simulation: \par
+5\% VaR: -22.55\%\par
+1\% VaR: -24.16\%\par
+
+\section{Problem3}
+----------------------------EWMA----------------------------\par
+    Symbol  5\% VaR  1\% VaR  Arithmetic 5\% VaR  Geometric 5\% VaR\par
+0      SPY  -1.05\%  -1.49\%          -4.053365         -4.032079\par
+1     AAPL  -1.69\%  -2.39\%          -2.621957         -2.599890\par
+2     MSFT  -1.83\%  -2.59\%          -4.644755         -4.602480\par
+3     AMZN  -2.37\%  -3.35\%          -3.017321         -2.981900\par
+4     NVDA  -3.28\%  -4.64\%          -4.471406         -4.398882\par
+..     ...     ...     ...                ...               ...\par
+96    LRCX  -2.71\%  -3.83\%         -11.450139        -11.296544\par
+97     ZTS  -1.82\%  -2.58\%          -2.834646         -2.808982\par
+98       C  -1.71\%  -2.42\%          -0.798769         -0.791984\par
+99     BSX  -1.23\%  -1.74\%          -0.497205         -0.494164\par
+100    AMT   -1.8\%  -2.54\%          -4.374174         -4.335101\par
+
+[101 rows x 5 columns]\par
+Arithmetic Total VaR: -362.432911810523\par
+Geometric Total VaR: -359.02848745056394\par
+
+------------------------Monte Carlo-------------------------\par
+    Symbol  5\% VaR  1\% VaR  Arithmetic 5\% VaR  Geometric 5\% VaR\par
+0      SPY  -1.06\%  -1.49\%          -4.063846         -4.042451\par
+1     AAPL  -1.59\%  -2.25\%          -2.467194         -2.447649\par
+2     MSFT  -1.92\%  -2.72\%          -4.868885         -4.822445\par
+3     AMZN  -2.37\%  -3.35\%          -3.021181         -2.985671\par
+4     NVDA  -3.34\%  -4.73\%          -4.556723         -4.481421\par
+..     ...     ...     ...                ...               ...\par
+96    LRCX  -2.63\%  -3.72\%         -11.138567        -10.993182\par
+97     ZTS  -1.86\%  -2.63\%          -2.891639         -2.864936\par
+98       C  -1.77\%   -2.5\%          -0.826620         -0.819354\par
+99     BSX  -1.24\%  -1.76\%          -0.502747         -0.499639\par
+100    AMT  -1.75\%  -2.48\%          -4.264427         -4.227285\par
+
+[101 rows x 5 columns]\par
+Arithmetic Total VaR: -358.28488443025043\par
+Geometric Total VaR: -354.96695189354193\par
+
+-------------------------Historical-------------------------\par
+    Symbol  5\% VaR  1\% VaR  Arithmetic 5\% VaR  Geometric 5\% VaR\par
+0      SPY  -1.01\%  -1.44\%          -3.903027         -3.883288\par
+1     AAPL   -1.7\%  -2.41\%          -2.639270         -2.616912\par
+2     MSFT  -1.72\%  -2.43\%          -4.353834         -4.316675\par
+3     AMZN  -2.23\%  -3.15\%          -2.841246         -2.809825\par
+4     NVDA  -3.56\%  -5.04\%          -4.858512         -4.772968\par
+..     ...     ...     ...                ...               ...\par
+96    LRCX  -2.72\%  -3.85\%         -11.515370        -11.360029\par
+97     ZTS  -1.74\%  -2.46\%          -2.711432         -2.687945\par
+98       C  -1.75\%  -2.47\%          -0.817839         -0.810727\par
+99     BSX  -1.23\%  -1.74\%          -0.498718         -0.495659\par
+100    AMT  -1.67\%  -2.37\%          -4.070106         -4.036263\par
+
+[101 rows x 5 columns]\par
+Arithmetic Total VaR: -358.0565073942368\par
+Geometric Total VaR: -354.70430245091774\par
+
+EWMA's loss is highest, since it consider different weights for returns on different time. It is reasonable and take more tolerance of risk.
+\end{document}
