@@ -1,0 +1,618 @@
+% gjilguid2e.tex
+% V2.0 released 1998 December 18
+% V2.1 released 2003 October 7 -- Gregor Hutton, updated the web address for the style files.
+
+\documentclass{gji}
+\usepackage{timet}
+\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
+
+\title[Project Week 05: Advanced VaR and Expected Shortfall]
+  {Project Week 05: 
+  Advanced VaR and Expected Shortfall}
+\author[Xianqi Dong]
+  {Xianqi Dong$^1$ \\
+  $^1$ Pratt School of Engineering, Duke University, 
+  Durham NC \emph{27705}, United States
+  }
+\date{Last update: \today}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\volume{Spring2024}
+\pubyear{545}
+
+%\def\LaTeX{L\kern-.36em\raise.3ex\hbox{{\small A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+%\def\LATeX{L\kern-.36em\raise.3ex\hbox{{\Large A}}\kern-.15em
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+% Authors with AMS fonts and mssymb.tex can comment out the following
+% line to get the correct symbol for Geophysical Journal International.
+\let\leqslant=\leq
+
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+\label{firstpage}
+
+\maketitle
+
+\section{Problem 1}
+
+Please see the repo. The \textit{RiskManagement} folder contains all files for tests:
+\begin{description}
+  \item \texttt{Cov} -- Covariance estimation techniques.
+  \item \texttt{NonPSD} -- Non-PSD fixes for correlation matrices.
+  \item \texttt{Sim} -- Simulation Methods.
+  \item \texttt{VaR} -- VaR calculation methods (all discussed).
+  \item \texttt{ES} -- ES calculation.
+\end{description}
+
+\subsection{Missing covariance calculations}
+Two common way yo calculate:
+\begin{enumerate}
+  \item Only use the days on which all markets are open;
+  \item Use pairwise calculations. Find the matching rows for each pair, 
+        and build the covariance matrix piece by piece.
+\end{enumerate}
+
+\subsubsection{Skip missing rows-covariance}
+\setlength{\tabcolsep}{1.5mm}{
+\begin{tabular}{lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 2.148513 &-1.389470 &-0.516466 &-0.129327 &-1.056814 \\
+x2 &-1.389470 & 1.035342 & 0.339993 & 0.193888 & 0.626876 \\
+x3 &-0.516466 & 0.339993 & 0.942388 & 0.947887 & 0.051788 \\
+x4 &-0.129327 & 0.193888 & 0.947887 & 1.113436 &-0.204731 \\
+x5 &-1.056814 & 0.626876 & 0.051788 &-0.204731 & 0.592027 \\
+\hline
+\end{tabular}}
+
+
+\subsubsection{Skip missing rows-correlation}
+\setlength{\tabcolsep}{1.5mm}{
+\begin{tabular}{lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.000000 &-0.931618 &-0.362959 &-0.083616 &-0.937042 \\
+x2 &-0.931618 & 1.000000 & 0.344202 & 0.180583 & 0.800698 \\
+x3 &-0.362959 & 0.344202 & 1.000000 & 0.925357 & 0.069333 \\
+x4 &-0.083616 & 0.180583 & 0.925357 & 1.000000 &-0.252163 \\
+x5 &-0.937042 & 0.800698 & 0.069333 &-0.252163 & 1.000000 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Pairwise-covariance}
+\setlength{\tabcolsep}{1.5mm}{
+\begin{tabular}{lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.173986 &-0.629631 &-0.278932 &-0.081448 &-0.735140 \\
+x2 &-0.629631 & 1.318197 & 0.018090 & 0.446047 & 0.139309 \\
+x3 &-0.278932 & 0.018090 & 0.918102 & 0.360836 & 0.258613 \\
+x4 &-0.081448 & 0.446047 & 0.360836 & 0.894764 &-0.235190 \\
+x5 &-0.735140 & 0.139309 & 0.258613 &-0.235190 & 0.522607 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Pairwise-correlation}
+\setlength{\tabcolsep}{1.5mm}{
+\begin{tabular}{lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.000000 &-0.483199 &-0.241787 &-0.067767 &-0.714761 \\
+x2 &-0.483199 & 1.000000 & 0.015446 & 0.405660 & 0.178286 \\
+x3 &-0.241787 & 0.015446 & 1.000000 & 0.488250 & 0.336248 \\
+x4 &-0.067767 & 0.405660 & 0.488250 & 1.000000 &-0.322136 \\
+x5 &-0.714761 & 0.178286 & 0.336248 &-0.322136 & 1.000000 \\
+\hline
+\end{tabular}}
+
+\subsection{EW covariance}
+\begin{equation}
+  w_{t-i} = (1-\lambda)\lambda^{i-1} \\
+\end{equation}
+\begin{equation}
+  \widehat{w_{t-i}} = \frac{w_{t-i}}{\sum_{j=i}^{n}{w_{t-j}}}
+\end{equation}
+\begin{equation}
+  \widehat{cov(x, y)} = \sum_{i=1}^{n}\widehat{w_{t-i}}(x_{t-i}-\bar{x})(y_{t-i}-\bar{y})
+\end{equation}
+
+\subsubsection{EW covariance $\lambda$=0.97}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.855911 & 0.127559 & 0.186929 & 0.081415 & 0.052412 \\
+x2 & 0.127559 &  1.08735 & 0.032715 & 0.112515 &-0.432729 \\
+x3 & 0.186929 & 0.032715 & 0.744771 & 0.131065 & 0.065806 \\
+x4 & 0.081415 & 0.112515 & 0.131065 &  0.86881 & 0.113836 \\
+x5 & 0.052412 &-0.432729 & 0.065806 & 0.113836 &  1.13918 \\
+\hline
+\end{tabular}}
+
+\subsubsection{EW correlation $\lambda$=0.94}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 &      1.0 & 0.109711 & 0.218511 & 0.116902 & 0.059677 \\
+x2 & 0.109711 &      1.0 &-0.046716 & 0.191773 &-0.444896 \\
+x3 & 0.218511 &-0.046716 &      1.0 & 0.184148 & 0.089927 \\
+x4 & 0.116902 & 0.191773 & 0.184148 &      1.0 & 0.122028 \\
+x5 & 0.059677 &-0.444896 & 0.089927 & 0.122028 &      1.0 \\
+\hline
+\end{tabular}}
+
+\subsubsection{EW cov w/EW var($\lambda$=0.94) EW correlation($\lambda$=0.97)}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.855911 &  0.10584 & 0.174461 & 0.100809 & 0.058928 \\
+x2 &  0.10584 &  1.08735 & -0.04204 & 0.186396 &-0.495153 \\
+x3 & 0.174461 & -0.04204 & 0.744771 & 0.148129 & 0.082832 \\
+x4 & 0.100809 & 0.186396 & 0.148129 &  0.86881 & 0.121399 \\
+x5 & 0.058928 &-0.495153 & 0.082832 & 0.121399 &  1.13918 \\
+\hline
+\end{tabular}}
+
+\subsection{Non-psd matrices}
+\begin{equation}
+  \Lambda = diag(\lambda_{i})
+\end{equation}
+\begin{equation}
+  CS = \Lambda S
+\end{equation}
+\begin{equation}
+  \lambda_{i}' = max(\lambda_{i},0)
+\end{equation}
+\begin{equation}
+  t_{i} = [\sum_{j=1}^{n}s_{i,j}^{2}\lambda_{j}']^{-1}
+\end{equation}
+\begin{equation}
+  T = diag(t_i)
+\end{equation}
+\begin{equation}
+  B = \sqrt{T}S\sqrt{\Lambda'}
+\end{equation}
+\begin{equation}
+  BB^T = \hat{C} \approx C
+\end{equation}
+
+\subsubsection{Near\_psd covariance}
+\setlength{\tabcolsep}{1.4mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.173986 &-0.617989 &-0.284559 &-0.065152 &-0.688287 \\
+x2 &-0.617989 & 1.318197 & 0.017092 & 0.445696 & 0.139176 \\
+x3 &-0.284559 & 0.017092 & 0.918102 & 0.354147 & 0.246056 \\
+x4 &-0.065152 & 0.445696 & 0.354147 & 0.894764 &-0.218717 \\
+x5 &-0.688287 & 0.139176 & 0.246056 &-0.218717 & 0.522607 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Near\_psd Correlation}
+\setlength{\tabcolsep}{1.4mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.000000 &-0.483199 &-0.241787 &-0.067767 &-0.714761 \\
+x2 &-0.483199 & 1.000000 & 0.015446 & 0.405660 & 0.178286 \\
+x3 &-0.241787 & 0.015446 & 1.000000 & 0.488250 & 0.336248 \\
+x4 &-0.067767 & 0.405660 & 0.488250 & 1.000000 &-0.322136 \\
+x5 &-0.714761 & 0.178286 & 0.336248 &-0.322136 & 1.000000 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Higham covariance}
+\setlength{\tabcolsep}{1.4mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.173986 &-0.623870 &-0.294335 &-0.057677 &-0.693888 \\
+x2 &-0.623870 & 1.318197 & 0.016449 & 0.448579 & 0.143703 \\
+x3 &-0.294335 & 0.016449 & 0.918102 & 0.354067 & 0.246866 \\
+x4 &-0.057677 & 0.448579 & 0.354067 & 0.894764 &-0.217062 \\
+x5 &-0.693888 & 0.143703 & 0.246866 &-0.217062 & 0.522607 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Higham correlation}
+\setlength{\tabcolsep}{1.4mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.000000 &-0.483199 &-0.241787 &-0.067767 &-0.714761 \\
+x2 &-0.483199 & 1.000000 & 0.015446 & 0.405660 & 0.178286 \\
+x3 &-0.241787 & 0.015446 & 1.000000 & 0.488250 & 0.336248 \\
+x4 &-0.067767 & 0.405660 & 0.488250 & 1.000000 &-0.322136 \\
+x5 &-0.714761 & 0.178286 & 0.336248 &-0.322136 & 1.000000 \\
+\hline
+\end{tabular}}
+
+\subsection{Cholesky factorization}
+\begin{enumerate}
+  \item Column $j$ , start on the diagonal element
+  \item Subtract the sum of the squares of the values on the root matrix for row j from the value
+        on the input matrix on the diagonal.
+  \item Update the root matrix at position $(j,j)$ with the square root of 2
+  \item Moving down the column, row i
+  \begin{enumerate}  
+    \item Calculate the dot product of sub matrix vector $[i, 1:(j-1)]$ and $[j, 1:(j-1)]$
+    \item Subtract a. from the $(i,j)$ element of the input matrix.
+    \item Divide b. by the j diagonal element of the root matrix
+    \item Store that value in element $(i,j)$ of the root matrix.
+  \end{enumerate}
+  \item Repeat for the next column.
+\end{enumerate}
+
+\hspace{-1.2cm}
+\setlength{\tabcolsep}{0.9mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 1.083506 & 0.000000 & 0.000000 & 0.000000 & 0.000000e+00 \\
+x2 &-0.570360 & 0.996437 & 0.000000 & 0.000000 & 0.000000e+00 \\
+x3 &-0.262628 &-0.133175 & 0.911807 & 0.000000 & 0.000000e+00 \\
+x4 &-0.060130 & 0.412871 & 0.431384 & 0.731160 & 0.000000e+00 \\
+x5 &-0.635240 &-0.223938 & 0.054179 &-0.256892 & 1.053671e-08 \\
+\hline
+\end{tabular}}
+
+\subsection{Normal simulation}
+\begin{equation}
+  x = F^{-1}(random\ uniform)
+\end{equation}
+
+\subsubsection{PD input}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.085367 & 0.087933 & 0.042383 & 0.009032 & 0.003874 \\
+x2 & 0.087933 & 0.160844 & 0.058218 & 0.012410 & 0.005335 \\
+x3 & 0.042383 & 0.058218 & 0.037386 & 0.005975 & 0.002566 \\
+x4 & 0.009032 & 0.012410 & 0.005975 & 0.001695 & 0.000548 \\
+x5 & 0.003874 & 0.005335 & 0.002566 & 0.000548 & 0.000314 \\
+\hline
+\end{tabular}}
+
+\subsubsection{PSD input}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.085474 & 0.117461 & 0.042377 & 0.008987 & 0.003869 \\
+x2 & 0.117461 & 0.161419 & 0.058236 & 0.012350 & 0.005317 \\
+x3 & 0.042377 & 0.058236 & 0.037285 & 0.005926 & 0.002564 \\
+x4 & 0.008987 & 0.012350 & 0.005926 & 0.001679 & 0.000543 \\
+x5 & 0.003869 & 0.005317 & 0.002564 & 0.000543 & 0.000314 \\
+\hline
+\end{tabular}}
+
+\subsubsection{NonPSD input, near\_psd fix}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.085318 & 0.008679 & 0.037962 & 0.008066 & 0.003476 \\
+x2 & 0.008679 & 0.160988 & 0.052052 & 0.011104 & 0.004768 \\
+x3 & 0.037962 & 0.052052 & 0.037545 & 0.006033 & 0.002593 \\
+x4 & 0.008066 & 0.011104 & 0.006033 & 0.001699 & 0.000553 \\
+x5 & 0.003476 & 0.004768 & 0.002593 & 0.000553 & 0.000315 \\
+\hline
+\end{tabular}}
+
+\subsubsection{NonPSD input Higham fix}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.084845 & 0.013741 & 0.039073 & 0.008274 & 0.003577 \\
+x2 & 0.013741 & 0.160394 & 0.053686 & 0.011398 & 0.004918 \\
+x3 & 0.039073 & 0.053686 & 0.037571 & 0.006248 & 0.002700 \\
+x4 & 0.008274 & 0.011398 & 0.006248 & 0.001692 & 0.000572 \\
+x5 & 0.003577 & 0.004918 & 0.002700 & 0.000572 & 0.000315 \\
+\hline
+\end{tabular}}
+
+\subsubsection{PSD Input - PCA simulation}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrrrr}
+\hline
+\verb" " & x1 & x2 & x3 & x4 & x5\\
+\hline
+x1 & 0.085344 & 0.117282 & 0.042516 & 0.009038 & 0.003896 \\
+x2 & 0.117282 & 0.161173 & 0.058427 & 0.012420 & 0.005355 \\
+x3 & 0.042516 & 0.058427 & 0.037562 & 0.006046 & 0.002595 \\
+x4 & 0.009038 & 0.012420 & 0.006046 & 0.001103 & 0.000474 \\
+x5 & 0.003896 & 0.005355 & 0.002595 & 0.000474 & 0.000204 \\
+\hline
+\end{tabular}}
+
+
+\subsection{Returns}
+
+\subsubsection{Arithmetic returns}\
+\begin{equation}
+  P_t = P_{t-1}(1+r_t)
+\end{equation}
+
+\subsection{Fit}
+\subsubsection{Fit normal distribution}
+\setlength{\tabcolsep}{0.5mm}{
+\begin{tabular}{@{}lrrrrrrr}
+\verb"Date"&\verb"SPY"&\verb"AAPL"&\verb"MSFT"&\verb"AMZN"&\verb"NVDA"\\
+\hline
+2022-09-02 &-0.010544 &-0.013611 &-0.016667 &-0.002425 &-0.020808 \\
+2022-09-06 &-0.003773 &-0.008215 &-0.010974 &-0.010980 &-0.013336 \\
+2022-09-07 & 0.017965 & 0.009254 & 0.019111 & 0.026723 & 0.018795 \\
+2022-09-08 & 0.006536 &-0.009618 & 0.001666 & 0.002626 & 0.020126 \\
+2022-09-09 & 0.015535 & 0.018840 & 0.022977 & 0.026575 & 0.028377 \\
+\verb"..." &\verb"..."&\verb"..."&\verb"..."&\verb"..."&\verb"..." \\
+2023-09-18 & 0.000586 & 0.016913 &-0.003513 &-0.002920 & 0.001503 \\
+2023-09-19 &-0.002074 & 0.006181 &-0.001246 &-0.016788 &-0.010144 \\
+2023-09-20 &-0.009193 &-0.019992 &-0.023977 &-0.017002 &-0.029435 \\
+2023-09-21 &-0.016528 &-0.008889 &-0.003866 &-0.044053 &-0.028931 \\
+2023-09-22 &-0.002249 & 0.004945 &-0.007887 &-0.001624 & 0.014457 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Log returns}
+\begin{equation}
+  P_t = P_{t-1}e^{r_t}
+\end{equation}
+
+\subsection{Fit}
+\subsubsection{Fit normal distribution}
+\setlength{\tabcolsep}{0.5mm}{
+\begin{tabular}{@{}lrrrrr}
+\verb"Date"&\verb"SPY"&\verb"AAPL"&\verb"MSFT"&\verb"AMZN"&\verb"NVDA"\\
+\hline
+2022-09-02 &-0.010600 &-0.013705 &-0.016807 &-0.002428 &-0.021027 \\
+2022-09-06 &-0.003780 &-0.008249 &-0.011035 &-0.011040 &-0.013426 \\
+2022-09-07 & 0.017806 & 0.009211 & 0.018931 & 0.026372 & 0.018621 \\
+2022-09-08 & 0.006515 &-0.009664 & 0.001665 & 0.002623 & 0.019926 \\
+2022-09-09 & 0.015416 & 0.018664 & 0.022717 & 0.026228 & 0.027982 \\
+\verb"..." &\verb"..."&\verb"..."&\verb"..."&\verb"..."&\verb"..." \\
+2023-09-18 & 0.000586 & 0.016772 &-0.003519 &-0.002925 & 0.001502 \\
+2023-09-19 &-0.002076 & 0.006162 &-0.001247 &-0.016931 &-0.010196 \\
+2023-09-20 &-0.009236 &-0.020195 &-0.024269 &-0.017148 &-0.029877 \\
+2023-09-21 &-0.016666 &-0.008929 &-0.003873 &-0.045053 &-0.029357 \\
+2023-09-22 &-0.002251 & 0.004932 &-0.007918 &-0.001625 & 0.014354 \\
+\hline
+\end{tabular}}
+
+\subsection{Fit}
+\subsubsection{Fit normal distribution}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+mu & sigma\\
+\hline
+0.046026 & 0.046545 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Fit t distribution}
+\begin{equation}
+  ll = \frac{n}{2}ln(\sigma^2 2\pi) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+\end{equation}
+
+\hspace{-1.3cm}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrr}
+\hline
+mu & sigma & nu\\
+\hline
+0.04594 & 0.045443 & 6.336867 \\
+\hline
+\end{tabular}}
+
+\subsubsection{Fit t regression}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+mu & 5.951481e-07 \\
+sigma & 0.048548 \\
+nu & 4.598303 \\
+Alpha & 0.042633 \\
+B1 & 0.97501 \\
+B2 & 2.041187 \\
+B3 & 3.154751 \\
+\hline
+\end{tabular}}
+
+
+\subsection{VaR and ES}
+\begin{equation}
+  VaR_{\alpha}(x) = -F_{x}^{-1}(\alpha)
+\end{equation}
+\begin{equation}
+  ES_{\alpha}(X) = -\frac{1}{\alpha}\int_{-\infty}^{-VaR(X)}xf(x)dx
+\end{equation}
+
+\subsubsection{VaR normal distribution}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.030535 & 0.07656 \\
+\hline
+\end{tabular}}
+
+\subsubsection{VaR t distribution}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.04153 & 0.08747 \\
+\hline
+\end{tabular}}
+
+\subsubsection{VaR simulation}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.041848 & 0.087703 \\
+\hline
+\end{tabular}}
+
+\subsubsection{ES normal distribution}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.049984 & 0.09601 \\
+\hline
+\end{tabular}}
+
+\subsubsection{ES t distribution}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.075232 & 0.121172 \\
+\hline
+\end{tabular}}
+
+\subsubsection{VaR Simulation}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.076033 & 0.122302 \\
+\hline
+\end{tabular}}
+
+
+\subsection{Risk with copula}
+\begin{equation}
+  C_{R}(X) = \Phi_R(\Phi^{-1}(F_1(x_1)), \Phi^{-1}(F_2(x_2)), \dots, \Phi^{-1}(F_n(x_n)))
+\end{equation}
+\hspace{-0.5cm}
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrr}
+\hline
+Stock & VaR95 & ES95 & VaR95\_Pct & ES95\_Pct \\
+\hline
+    A &  93.986214 & 117.630036 & 0.046993 & 0.058815 \\
+    B & 108.399648 & 152.062133 & 0.036133 & 0.050687 \\
+Total & 155.796148 & 193.914934 & 0.031159 & 0.038783 \\
+\hline
+\end{tabular}}
+
+
+\section{Problem 2}
+\subsection{a}
+Using a normal distribution with an exponentially weighted variance (lambda=0.97):
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.091169 & 0.09029 \\
+\hline
+\end{tabular}}
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.113349 & 0.113227 \\
+\hline
+\end{tabular}}
+
+\subsection{b}
+Using a MLE fitted T distribution: 
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.076476 & 0.076382 \\
+\hline
+\end{tabular}}
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.113218 & 0.113124 \\
+\hline
+\end{tabular}}
+
+\subsection{c}
+Using a Historic Simulation: 
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lr}
+\hline
+VaR Absolute & VaR Diff from Mean\\
+\hline
+0.075981 & 0.075101 \\
+\hline
+\end{tabular}}
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrr}
+\hline
+ES Absolute & ES Diff from Mean\\
+\hline
+0.116777 & 0.11372 \\
+\hline
+\end{tabular}}
+
+\section{Problem 3}
+
+\setlength{\tabcolsep}{1.7mm}{
+\begin{tabular}{@{}lrrrr}
+\hline
+Stock & VaR95 & ES95 & VaR95\_Pct & ES95\_Pct \\
+\hline
+ AAPL &   317.465211 &  414.398701 & 0.036335 &  0.04743 \\
+ ABBV &   256.645275 &  322.998933 & 0.023323 & 0.029353 \\
+  ABT &   231.944693 &  290.561932 & 0.027168 & 0.034033 \\
+  ACN &   273.995667 &  363.900022 & 0.033133 & 0.044004 \\
+ ADBE &   319.080784 &  449.219532 & 0.042452 & 0.059767 \\
+  ... &          ...          ... &      ... &      ... \\
+  WFC &    274.43128 &  389.418363 & 0.033347 & 0.047319 \\
+  WMT &   225.073975 &  359.760232 & 0.023049 & 0.036842 \\
+  XOM &   521.057161 &  697.143923 & 0.032548 & 0.043547 \\
+  ZTS &   253.575624 &  338.527727 & 0.032181 & 0.042962 \\
+Total & 20319.687801 & 25526.91869 & 0.023508 & 0.029532 \\
+\hline
+\end{tabular}}
+
+\label{lastpage}
+
+\end{document}

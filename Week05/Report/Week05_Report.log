@@ -1,0 +1,192 @@
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.2.23)  2 MAR 2024 17:41
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**Week05_Report
+(./Week05_Report.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+(./gji.cls
+Document Class: gji 1995/11/30 v2.0 LaTeX2e document class
+Document Class `GJI' V2.0, released 1998 Nov
+\fntxvi=\skip48
+\fntxvii=\skip49
+\GJ@measure=\dimen140
+\c@part=\count184
+\c@section=\count185
+\c@subsection=\count186
+\c@subsubsection=\count187
+\c@paragraph=\count188
+\c@subparagraph=\count189
+\@indentskip=\skip50
+\smallindent=\skip51
+\@footindent=\skip52
+\@leftskip=\skip53
+\c@dummy=\count190
+\c@table=\count191
+\c@figure=\count192
+\bibhang=\skip54
+\mathindent=\dimen141
+) (./timet.sty
+Package: timet 1997/01/23 6.0 Times PSNFSS2e package
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.sty (/usr/local/texlive/2023/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty (/usr/local/texlive/2023/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2024-02-20 L3 programming layer (loader) 
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
+\g__graphics_track_int=\count193
+\l__pdf_internal_box=\box51
+\g__pdf_backend_object_int=\count194
+\g__pdf_backend_annotation_int=\count195
+\g__pdf_backend_link_int=\count196
+))
+Package: l3keys2e 2024-02-18 LaTeX2e option processing using LaTeX3 keys
+)
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count197
+\l__lipsum_a_int=\count198
+\l__lipsum_b_int=\count199
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+\c@theorem=\count266
+ (./Week05_Report.aux)
+\openout1 = `Week05_Report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 32.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 59.
+
+Overfull \hbox (10.93387pt too wide) in paragraph at lines 59--70
+[] 
+ []
+
+
+Overfull \hbox (10.93387pt too wide) in paragraph at lines 74--85
+[] 
+ []
+
+
+Overfull \hbox (10.93387pt too wide) in paragraph at lines 88--99
+[] 
+ []
+
+
+Overfull \hbox (10.93387pt too wide) in paragraph at lines 102--113
+[] 
+ []
+
+
+Overfull \hbox (3.6645pt too wide) in paragraph at lines 127--138
+[] 
+ []
+
+
+Overfull \hbox (6.7515pt too wide) in paragraph at lines 141--152
+[] 
+ []
+
+
+Overfull \hbox (3.6645pt too wide) in paragraph at lines 155--166
+[] 
+ []
+
+
+Underfull \vbox (badness 2426) has occurred while \output is active []
+
+ [1
+
+
+]
+Overfull \hbox (3.53613pt too wide) in paragraph at lines 192--203
+[] 
+ []
+
+
+Overfull \hbox (3.53613pt too wide) in paragraph at lines 206--217
+[] 
+ []
+
+
+Overfull \hbox (3.53613pt too wide) in paragraph at lines 220--231
+[] 
+ []
+
+
+Overfull \hbox (3.53613pt too wide) in paragraph at lines 234--245
+[] 
+ []
+
+
+Overfull \hbox (0.53201pt too wide) in paragraph at lines 262--275
+[]        [] 
+ []
+
+[2]
+Overfull \hbox (9.04594pt too wide) in paragraph at lines 362--378
+[] 
+ []
+
+
+Overfull \hbox (9.04594pt too wide) in paragraph at lines 387--403
+[] 
+ []
+
+[3]
+Overfull \hbox (14.96953pt too wide) detected at line 517
+$ \OML/cmm/m/it/9 C[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 X\OT1/cmr/m/n/9 ) = ^^H[](^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 ))\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 ^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 ))\OML/cmm/m/it/9 ; [] ; \OT1/cmr/m/n/9 ^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 )))$ \TU/lmr/m/n/9 (17)
+ []
+
+
+Overfull \hbox (3.89934pt too wide) in paragraph at lines 518--529
+        [] 
+ []
+
+
+Overfull \hbox (22.22359pt too wide) in paragraph at lines 598--615
+[] 
+ []
+
+[4] (./Week05_Report.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 1145 strings out of 474794
+ 23032 string characters out of 5758524
+ 1954839 words of memory out of 5000000
+ 23310 multiletter control sequences out of 15000+600000
+ 561813 words of font info for 60 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 79i,9n,93p,220b,298s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on Week05_Report.pdf (4 pages).
