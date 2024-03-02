@@ -29,4 +29,4 @@
 
 # Run
 
-Once your environment installs these packages, you can run them directly. If not, use "pip install {package name}".
+Once your environment installs these packages, you can run them after you download the RiskManagement folder.
