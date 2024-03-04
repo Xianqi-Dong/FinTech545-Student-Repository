@@ -19,7 +19,7 @@ def copula_risk(portfolio, ror, nSim = 100000):
     sigma = {}
     nu = {}
     U = pd.DataFrame()
-    for stock in ror.columns:
+    for stock in portfolio.index:
         if portfolio.loc[stock, "Distribution"] == "Normal":
             models[stock] = v.fit_normal(ror[stock])
             mu[stock] = models[stock].loc[0, "mu"]
@@ -33,7 +33,7 @@ def copula_risk(portfolio, ror, nSim = 100000):
     spcor = U.corr(method='spearman')
     uSim = s.simulate_pca(spcor, nSim)
     uSim = stats.norm.cdf(uSim)
-    uSim = pd.DataFrame(uSim, columns = ror.columns)
+    uSim = pd.DataFrame(uSim, columns = portfolio.index)
     simRet = pd.DataFrame()
     for stock in uSim.columns:
         if portfolio.loc[stock, "Distribution"] == "Normal":

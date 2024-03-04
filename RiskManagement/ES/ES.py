@@ -60,8 +60,10 @@ def ES_simulation(ror, alpha, n = 10000):
     return pd.DataFrame({"ES Absolute": [ES], 
                          "ES Diff from Mean": [diff]})
 
-def ES_historic(ror, alpha):
-    VaR = v.VaR_historic(ror, alpha)
+def ES_historic(ror, alpha, n = 10000):
+    ror = np.random.choice(ror.iloc[:, 0], size=n)
+    ror = pd.DataFrame(ror)
+    VaR = v.VaR_historic(ror, alpha, n)
     x_a = -VaR.loc[0, "VaR Absolute"]
     x_d = -VaR.loc[0, "VaR Diff from Mean"]
     ES = -np.mean(ror[ror <= x_a])

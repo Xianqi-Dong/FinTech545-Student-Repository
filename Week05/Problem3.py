@@ -22,8 +22,14 @@ for i in range(portfolio.shape[0]):
         portfolio.loc[i, "Distribution"] = "Normal"
 ror = rt.return_calculate(dp, "Date")
 ror = ror.drop(columns=['Date'])
-for stock in ror.columns:
-    if stock not in list(portfolio["Stock"]):
-        ror = ror.drop(columns=[stock])
+portfolio_a = portfolio.loc[portfolio["Portfolio"] == "A"]
+risk_a = c.copula_risk(portfolio_a, ror)
+print(risk_a)
+portfolio_b = portfolio.loc[portfolio["Portfolio"] == "B"]
+risk_b = c.copula_risk(portfolio_b, ror)
+print(risk_b)
+portfolio_c = portfolio.loc[portfolio["Portfolio"] == "C"]
+risk_c = c.copula_risk(portfolio_c, ror)
+print(risk_c)
 risk = c.copula_risk(portfolio, ror)
 print(risk)

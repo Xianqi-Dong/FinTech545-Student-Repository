@@ -98,8 +98,9 @@ def VaR_simulation(ror, alpha, n = 10000):
     sim = sim * sigma + mu
     return VaR_t_distribution(sim, alpha)
 
-def VaR_historic(ror, alpha):
-    VaR = -ror.quantile(alpha).iloc[0]
+def VaR_historic(ror, alpha, n = 10000):
+    ror = np.random.choice(ror.iloc[:, 0], size=n)
+    VaR = -np.quantile(ror, alpha)
     diff = VaR + np.mean(ror)
     return pd.DataFrame({"VaR Absolute": [VaR], 
                          "VaR Diff from Mean": [diff]})
