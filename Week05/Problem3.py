@@ -8,6 +8,7 @@ sys.path.append( '../RiskManagement/Cov' )
 sys.path.append( '../RiskManagement/NonPSD' )
 import Return as rt
 import Copula as c
+import Risk as r
 
 
 dp = pd.read_csv("./Project/DailyPrices.csv")
@@ -22,14 +23,27 @@ for i in range(portfolio.shape[0]):
         portfolio.loc[i, "Distribution"] = "Normal"
 ror = rt.return_calculate(dp, "Date")
 ror = ror.drop(columns=['Date'])
+
 portfolio_a = portfolio.loc[portfolio["Portfolio"] == "A"]
 risk_a = c.copula_risk(portfolio_a, ror)
-print(risk_a)
+print(risk_a.to_latex(index=False))
 portfolio_b = portfolio.loc[portfolio["Portfolio"] == "B"]
 risk_b = c.copula_risk(portfolio_b, ror)
-print(risk_b)
+print(risk_b.to_latex(index=False))
 portfolio_c = portfolio.loc[portfolio["Portfolio"] == "C"]
 risk_c = c.copula_risk(portfolio_c, ror)
-print(risk_c)
+print(risk_c.to_latex(index=False))
 risk = c.copula_risk(portfolio, ror)
-print(risk)
+print(risk.to_latex(index=False))
+
+# portfolio_a = portfolio.loc[portfolio["Portfolio"] == "A"]
+# risk_a = r.risk(portfolio_a, ror)
+# print(risk_a.to_latex(index=False))
+# portfolio_b = portfolio.loc[portfolio["Portfolio"] == "B"]
+# risk_b = r.risk(portfolio_b, ror)
+# print(risk_b.to_latex(index=False))
+# portfolio_c = portfolio.loc[portfolio["Portfolio"] == "C"]
+# risk_c = r.risk(portfolio_c, ror)
+# print(risk_c.to_latex(index=False))
+# risk = r.risk(portfolio, ror)
+# print(risk.to_latex(index=False))

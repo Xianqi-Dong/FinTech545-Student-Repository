@@ -9,7 +9,6 @@ import VaR as v
 import CovEstimation as ce
 
 
-
 def ES_normal_distribution(ror, alpha):
     params = v.fit_normal(ror)
     mu = params.loc[0, "mu"]
@@ -24,7 +23,7 @@ def ES_normal_distribution(ror, alpha):
 
 def ES_normal_distribution_ewvar(ror, alpha, lamb):
     mu = np.mean(ror)
-    ror = ror - mu
+    # ror = ror - mu
     ew_sigma = ce.ewCov(ror, lamb).iloc[0, 0] ** 0.5
     VaR = v.VaR_normal_distribution_ewvar(ror, alpha, lamb)
     x_a = -VaR.loc[0, "VaR Absolute"]

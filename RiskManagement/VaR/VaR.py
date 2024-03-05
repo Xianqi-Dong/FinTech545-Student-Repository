@@ -39,7 +39,7 @@ def MLE_t(X, Y):
     params = [df, s]
     for i in beta:
         params.append(i)
-    bnds = ((0, None), (0, None), (None, None), (None, None), (None, None), (None, None))
+    bnds = ((1e-9, None), (1e-9, None), (None, None), (None, None), (None, None), (None, None))
     res = optimize.minimize(ll_t, params, bounds=bnds, options={"disp": True})
     beta_mle = res.x[2:]
     return beta_mle
@@ -72,12 +72,13 @@ def VaR_normal_distribution(ror, alpha):
 
 def VaR_normal_distribution_ewvar(ror, alpha, lamb):
     mu = np.mean(ror)
-    ror = ror - mu
+    # ror = ror - mu
     ew_sigma = ce.ewCov(ror, lamb).iloc[0, 0] ** 0.5
     VaR = -stats.norm.ppf(alpha, loc = mu, scale = ew_sigma)
     diff = -stats.norm.ppf(alpha, loc = 0, scale = ew_sigma)
     return pd.DataFrame({"VaR Absolute": [VaR], 
                          "VaR Diff from Mean": [diff]})
+    # return mu, ew_sigma, VaR
 
 def VaR_t_distribution(ror, alpha):
     params = fit_general_t(ror)
@@ -88,6 +89,7 @@ def VaR_t_distribution(ror, alpha):
     diff = -stats.t.ppf(alpha, df = nu, loc = 0, scale = sigma)
     return pd.DataFrame({"VaR Absolute": [VaR], 
                          "VaR Diff from Mean": [diff]})
+    # return mu, sigma, nu, VaR
 
 def VaR_simulation(ror, alpha, n = 10000):
     params = fit_general_t(ror)

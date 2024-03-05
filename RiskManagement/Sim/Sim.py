@@ -23,7 +23,7 @@ def simulate_pca(cov, times = 100000, pctExp = 0.99):
     vals, vecs = la.eig(cov)
     flip = np.argsort(vals)[::-1]
     vals = vals[flip]
-    vecs = vecs[:, flip] 
+    vecs = vecs[:, flip]
     tv = np.sum(vals)
     posv = np.where(vals >= 1e-8)[0]
     if pctExp < 1:
