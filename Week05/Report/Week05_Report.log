@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.2.23)  4 MAR 2024 22:41
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.2.23)  4 MAR 2024 23:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -159,29 +159,29 @@ Overfull \hbox (0.53201pt too wide) in paragraph at lines 262--275
  []
 
 [2]
-Overfull \hbox (9.04594pt too wide) in paragraph at lines 362--378
+Overfull \hbox (9.04594pt too wide) in paragraph at lines 361--377
 [] 
  []
 
 
-Overfull \hbox (9.04594pt too wide) in paragraph at lines 387--403
+Overfull \hbox (9.04594pt too wide) in paragraph at lines 385--401
 [] 
  []
 
 [3]
-Overfull \hbox (14.96953pt too wide) detected at line 517
+Overfull \hbox (14.96953pt too wide) detected at line 515
 $ \OML/cmm/m/it/9 C[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 X\OT1/cmr/m/n/9 ) = ^^H[](^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 ))\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 ^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 ))\OML/cmm/m/it/9 ; [] ; \OT1/cmr/m/n/9 ^^H[](\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 x[]\OT1/cmr/m/n/9 )))$ \TU/lmr/m/n/9 (17)
  []
 
 
-Overfull \hbox (3.89934pt too wide) in paragraph at lines 518--529
+Overfull \hbox (3.89934pt too wide) in paragraph at lines 516--527
         [] 
  []
 
 File: figures/Figures_1.png Graphic file (type bmp)
 <figures/Figures_1.png>
 
-Overfull \hbox (29.22844pt too wide) in paragraph at lines 614--657
+Overfull \hbox (29.22844pt too wide) in paragraph at lines 612--655
 [][] 
  []
 
@@ -192,7 +192,7 @@ Underfull \vbox (badness 3579) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (25.37643pt too wide) in paragraph at lines 704--744
+Overfull \hbox (25.37643pt too wide) in paragraph at lines 702--742
 [][] 
  []
 
@@ -203,7 +203,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (20.87643pt too wide) in paragraph at lines 788--828
+Overfull \hbox (20.87643pt too wide) in paragraph at lines 786--826
 [][] 
  []
 
@@ -214,7 +214,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-Overfull \hbox (31.011pt too wide) in paragraph at lines 874--892
+Overfull \hbox (31.011pt too wide) in paragraph at lines 872--890
 [][] 
  []
 
